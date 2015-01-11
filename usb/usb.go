@@ -135,7 +135,11 @@ func (c *Context) ListDevices(each func(desc *Descriptor) bool) ([]*Device, erro
 				reterr = usbError(errno)
 				continue
 			}
-			ret = append(ret, newDevice(handle, desc))
+			if dev, err := newDevice(handle, desc); err != nil {
+				reterr = err
+			} else {
+				ret = append(ret, dev)
+			}
 		}
 	}
 	return ret, reterr
@@ -161,9 +165,7 @@ func (c *Context) OpenDeviceWithVidPid(vid, pid int) (*Device, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	device := newDevice(handle, desc)
-	return device, nil
+	return newDevice(handle, desc)
 }
 
 func (c *Context) Close() error {
