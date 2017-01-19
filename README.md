@@ -1,21 +1,18 @@
 Introduction
 ============
 
-[![Build Status][ciimg]][ci]
+[![Travis Build Status][travisimg]][travis]
+[![AppVeyor Build Status][appveyorimg]][appveyor]
 [![GoDoc][docimg]][doc]
 
-The gousb package is an attempt at wrapping the libusb library into a Go-like binding.
+The gousb package is an attempt at wrapping the libusb library into a Go-like binding. Supported platforms include Linux, maxOS and Windows.
 
-Supported platforms include:
-
-- linux
-- darwin
-- windows
-
-[ciimg]:  https://travis-ci.org/kylelemons/gousb.svg?branch=master
-[ci]:     https://travis-ci.org/kylelemons/gousb
-[docimg]: https://godoc.org/github.com/karalabe/gousb?status.svg
-[doc]:    https://godoc.org/github.com/karalabe/gousb
+[travisimg]:   https://travis-ci.org/karalabe/gousb.svg?branch=master
+[travis]:      https://travis-ci.org/karalabe/gousb
+[appveyorimg]: https://ci.appveyor.com/api/projects/status/84k9xse10rl72gn2/branch/master?svg=true
+[appveyor]:    https://ci.appveyor.com/project/karalabe/gousb
+[docimg]:      https://godoc.org/github.com/karalabe/gousb?status.svg
+[doc]:         https://godoc.org/github.com/karalabe/gousb
 
 Contributing
 ============
