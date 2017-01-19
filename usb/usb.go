@@ -15,11 +15,24 @@
 // Package usb provides a wrapper around libusb-1.0.
 package usb
 
-// #cgo windows CFLAGS: -ID:/lib/libusb-1.0.19/include
-// #cgo windows,amd64 LDFLAGS: D:/lib/libusb-1.0.19/MinGW64/static/libusb-1.0.a
-// #cgo windows,386 LDFLAGS: D:/lib/libusb-1.0.19/MinGW32/static/libusb-1.0.a
-// #cgo !windows LDFLAGS: -lusb-1.0
-// #include <libusb-1.0/libusb.h>
+/*
+#cgo CFLAGS: -I../internal/libusb/libusb
+#cgo CFLAGS: -DDEFAULT_VISIBILITY=""
+#cgo linux CFLAGS: -DOS_LINUX -D_GNU_SOURCE -DPOLL_NFDS_TYPE=int
+#cgo darwin CFLAGS: -DOS_DARWIN -DPOLL_NFDS_TYPE=int
+#cgo openbsd CFLAGS: -DOS_OPENBSD -DPOLL_NFDS_TYPE=int
+#cgo windows CFLAGS: -DOS_WINDOWS -DPOLL_NFDS_TYPE=int
+
+#include "os/threads_posix.c"
+#include "os/poll_posix.c"
+#include "os/linux_usbfs.c"
+#include "os/linux_netlink.c"
+#include "core.c"
+#include "descriptor.c"
+#include "hotplug.c"
+#include "io.c"
+#include "sync.c"
+*/
 import "C"
 
 import (

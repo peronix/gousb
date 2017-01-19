@@ -14,7 +14,9 @@
 
 package usb
 
-// #include <libusb-1.0/libusb.h>
+// #include "os/threads_posix.h"
+// #include "libusbi.h"
+// #include "libusb.h"
 import "C"
 
 type Descriptor struct {
