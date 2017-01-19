@@ -21,12 +21,28 @@ package usb
 #cgo linux CFLAGS: -DOS_LINUX -D_GNU_SOURCE -DPOLL_NFDS_TYPE=int
 #cgo darwin CFLAGS: -DOS_DARWIN -DPOLL_NFDS_TYPE=int
 #cgo openbsd CFLAGS: -DOS_OPENBSD -DPOLL_NFDS_TYPE=int
-#cgo windows CFLAGS: -DOS_WINDOWS -DPOLL_NFDS_TYPE=int
+#cgo windows CFLAGS: -DOS_WINDOWS -DUSE_USBDK -DPOLL_NFDS_TYPE=int
 
-#include "os/threads_posix.c"
-#include "os/poll_posix.c"
-#include "os/linux_usbfs.c"
-#include "os/linux_netlink.c"
+#if defined(OS_LINUX) || defined(OS_DARWIN) || defined(OS_OPENBSD)
+  #include "os/threads_posix.c"
+  #include "os/poll_posix.c"
+#elif defined(OS_WINDOWS)
+	#include "os/threads_windows.c"
+	#include "os/poll_windows.c"
+#endif
+
+#ifdef OS_LINUX
+	#include "os/linux_usbfs.c"
+	#include "os/linux_netlink.c"
+#elif OS_DARWIN
+	#include "os/darwin_usb.c"
+#elif OS_OPENBSD
+	#include "os/openbsd_usb.c"
+#elif OS_WINDOWS
+	#include "os/windows_nt_common.c"
+	#include "os/windows_usbdk.c"
+#endif
+
 #include "core.c"
 #include "descriptor.c"
 #include "hotplug.c"
