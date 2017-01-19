@@ -20,12 +20,14 @@ package usb
 #cgo CFLAGS: -DDEFAULT_VISIBILITY=""
 #cgo linux CFLAGS: -DOS_LINUX -D_GNU_SOURCE -DPOLL_NFDS_TYPE=int
 #cgo darwin CFLAGS: -DOS_DARWIN -DPOLL_NFDS_TYPE=int
+#cgo darwin LDFLAGS: -framework CoreFoundation -framework IOKit -lobjc
 #cgo openbsd CFLAGS: -DOS_OPENBSD -DPOLL_NFDS_TYPE=int
 #cgo windows CFLAGS: -DOS_WINDOWS -DUSE_USBDK -DPOLL_NFDS_TYPE=int
 
 #if defined(OS_LINUX) || defined(OS_DARWIN) || defined(OS_OPENBSD)
-  #include "os/threads_posix.c"
-  #include "os/poll_posix.c"
+	#include <sys/poll.h>
+	#include "os/threads_posix.c"
+	#include "os/poll_posix.c"
 #elif defined(OS_WINDOWS)
 	#include "os/threads_windows.c"
 	#include "os/poll_windows.c"
@@ -47,6 +49,7 @@ package usb
 #include "descriptor.c"
 #include "hotplug.c"
 #include "io.c"
+#include "strerror.c"
 #include "sync.c"
 */
 import "C"

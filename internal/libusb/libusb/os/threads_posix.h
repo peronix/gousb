@@ -50,9 +50,6 @@
 #define usbi_tls_key_set		pthread_setspecific
 #define usbi_tls_key_delete		pthread_key_delete
 
-int usbi_cond_timedwait(pthread_cond_t *cond,
-	pthread_mutex_t *mutex, const struct timeval *tv);
-
 int usbi_get_tid(void);
 
 #endif /* LIBUSB_THREADS_POSIX_H */
