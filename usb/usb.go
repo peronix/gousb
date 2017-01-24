@@ -69,13 +69,13 @@ func (c *Context) Debug(level int) {
 	C.libusb_set_debug(c.ctx, C.int(level))
 }
 
-func NewContext() *Context {
+func NewContext() (*Context, error) {
 	c := &Context{
 		done: make(chan struct{}),
 	}
 
 	if errno := C.libusb_init(&c.ctx); errno != 0 {
-		panic(usbError(errno))
+		return nil, usbError(errno)
 	}
 
 	go func() {
@@ -97,7 +97,7 @@ func NewContext() *Context {
 		}
 	}()
 
-	return c
+	return c, nil
 }
 
 // ListDevices calls each with each enumerated device.

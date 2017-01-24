@@ -21,7 +21,10 @@ import (
 )
 
 func TestGetStringDescriptorAscii(t *testing.T) {
-	c := NewContext()
+	c, err := NewContext()
+	if err != nil {
+		t.Fatalf("context creation failed: %v", err)
+	}
 	defer c.Close()
 	c.Debug(0)
 

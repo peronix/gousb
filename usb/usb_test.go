@@ -25,13 +25,19 @@ import (
 )
 
 func TestNoop(t *testing.T) {
-	c := NewContext()
+	c, err := NewContext()
+	if err != nil {
+		t.Fatalf("context creation failed: %v", err)
+	}
 	defer c.Close()
 	c.Debug(0)
 }
 
 func TestEnum(t *testing.T) {
-	c := NewContext()
+	c, err := NewContext()
+	if err != nil {
+		t.Fatalf("context creation failed: %v", err)
+	}
 	defer c.Close()
 	c.Debug(0)
 
@@ -82,7 +88,10 @@ func TestEnum(t *testing.T) {
 }
 
 func TestOpenDeviceWithVidPid(t *testing.T) {
-	c := NewContext()
+	c, err := NewContext()
+	if err != nil {
+		t.Fatalf("context creation failed: %v", err)
+	}
 	defer c.Close()
 	c.Debug(0)
 
@@ -125,8 +134,11 @@ func TestMultipleContexts(t *testing.T) {
 	var buf bytes.Buffer
 	log.SetOutput(&buf)
 	for i := 0; i < 2; i++ {
-		ctx := NewContext()
-		_, err := ctx.ListDevices(func(desc *Descriptor) bool {
+		ctx, err := NewContext()
+		if err != nil {
+			t.Fatalf("context creation failed: %v", err)
+		}
+		_, err = ctx.ListDevices(func(desc *Descriptor) bool {
 			return false
 		})
 		if err != nil {

@@ -32,7 +32,10 @@ func main() {
 	flag.Parse()
 
 	// Only one context should be needed for an application.  It should always be closed.
-	ctx := usb.NewContext()
+	ctx, err := usb.NewContext()
+	if err != nil {
+		log.Fatalf("context: %v", err)
+	}
 	defer ctx.Close()
 
 	// Debugging can be turned on; this shows some of the inner workings of the libusb package.
