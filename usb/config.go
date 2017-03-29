@@ -15,11 +15,7 @@
 package usb
 
 /*
-#ifndef OS_WINDOWS
-	#include "os/threads_posix.h"
-#endif
-#include "libusbi.h"
-#include "libusb.h"
+#include <libusb.h>
 */
 import "C"
 

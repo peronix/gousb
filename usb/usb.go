@@ -16,41 +16,10 @@
 package usb
 
 /*
-#cgo CFLAGS: -I../internal/libusb/libusb
-#cgo CFLAGS: -DDEFAULT_VISIBILITY=""
-#cgo linux CFLAGS: -DOS_LINUX -D_GNU_SOURCE -DPOLL_NFDS_TYPE=int
-#cgo darwin CFLAGS: -DOS_DARWIN -DPOLL_NFDS_TYPE=int
-#cgo darwin LDFLAGS: -framework CoreFoundation -framework IOKit -lobjc
-#cgo openbsd CFLAGS: -DOS_OPENBSD -DPOLL_NFDS_TYPE=int
-#cgo windows CFLAGS: -DOS_WINDOWS -DUSE_USBDK -DPOLL_NFDS_TYPE=int
-
-#if defined(OS_LINUX) || defined(OS_DARWIN) || defined(OS_OPENBSD)
-	#include <sys/poll.h>
-	#include "os/threads_posix.c"
-	#include "os/poll_posix.c"
-#elif defined(OS_WINDOWS)
-	#include "os/threads_windows.c"
-	#include "os/poll_windows.c"
-#endif
-
-#ifdef OS_LINUX
-	#include "os/linux_usbfs.c"
-	#include "os/linux_netlink.c"
-#elif OS_DARWIN
-	#include "os/darwin_usb.c"
-#elif OS_OPENBSD
-	#include "os/openbsd_usb.c"
-#elif OS_WINDOWS
-	#include "os/windows_nt_common.c"
-	#include "os/windows_usbdk.c"
-#endif
-
-#include "core.c"
-#include "descriptor.c"
-#include "hotplug.c"
-#include "io.c"
-#include "strerror.c"
-#include "sync.c"
+#cgo pkg-config: libusb-1.0
+#cgo windows CFLAGS: -I ${SRCDIR}/../internal/libusb-1.0.21/include
+#cgo windows LDFLAGS: -L ${SRCDIR}/../internal/libusb-1.0.21/MinGW64/static -lusb-1.0
+#include <libusb.h>
 */
 import "C"
 
